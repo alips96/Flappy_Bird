@@ -8,7 +8,8 @@ public class ScoreDetector : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        birdPostition = GameObject.Find("Bird").transform.position.x;
+        //birdPostition = GameObject.Find("Bird").transform.position.x;
+        birdPostition = 0; //new new must change
         scoreMaster = GameObject.Find("GameManager").GetComponent<ScoreMaster>();
     }
 
