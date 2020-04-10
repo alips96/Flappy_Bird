@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 1548241467705111201}
   - component: {fileID: 1548241467705111200}
   - component: {fileID: 1548241467705111203}
-  - component: {fileID: 3529705793010178775}
-  - component: {fileID: 1680785434273589235}
-  m_Layer: 0
+  - component: {fileID: -2374220112587994322}
+  - component: {fileID: 6975847918806022700}
+  m_Layer: 8
   m_Name: Bird
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoadLevelCanvas: {fileID: 0}
---- !u!114 &3529705793010178775
+--- !u!114 &-2374220112587994322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,11 +189,11 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 1680785434273589235}
+  - {fileID: 6975847918806022700}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1680785434273589235
+--- !u!114 &6975847918806022700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
