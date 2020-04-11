@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
+using Photon.Realtime;
 
-public class Bird : MonoBehaviour
+public class Bird : MonoBehaviourPun
 {
     public float speed;
     private Rigidbody2D myRigidbody;
@@ -11,10 +13,13 @@ public class Bird : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (photonView.IsMine)
         {
-            //flap
-            myRigidbody.velocity = Vector2.up * speed;
+            if (Input.GetMouseButtonDown(0))
+            {
+                //flap
+                myRigidbody.velocity = Vector2.up * speed;
+            }
         }
     }
 }

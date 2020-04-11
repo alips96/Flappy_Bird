@@ -8,7 +8,7 @@ public class InstantiateBird : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
+        //GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
         //GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
     }
 }
