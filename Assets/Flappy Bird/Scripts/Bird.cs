@@ -1,6 +1,5 @@
 ﻿using Photon.Pun;
 using UnityEngine;
-using Photon.Realtime;
 
 public class Bird : MonoBehaviourPun
 {
