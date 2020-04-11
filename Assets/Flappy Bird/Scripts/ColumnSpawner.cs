@@ -29,11 +29,9 @@ public class ColumnSpawner : MonoBehaviour
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                Vector3 spawnPos = new Vector3(transform.position.x, UnityEngine.Random.Range(yPos - 1, yPos + 2.8f));
-                PhotonNetwork.RaiseEvent(1, spawnPos, new RaiseEventOptions { Receivers = ReceiverGroup.All }, new SendOptions { Reliability = true });
+                Vector3 spawnPos = new Vector3(transform.position.x, Random.Range(yPos - 1, yPos + 2.8f));
+                PhotonNetwork.RaiseEvent(1, spawnPos, new RaiseEventOptions { Receivers = ReceiverGroup.All }, new SendOptions { Reliability = false });
             }
-
-            //SpawnColumnsss();
             nextCheck = Time.time + checkRate;
         }
     }
