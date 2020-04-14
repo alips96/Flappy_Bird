@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputFieldObject: {fileID: 1612747968}
   statusText: {fileID: 1978590130}
+  _masterManager: {fileID: 11400000, guid: de8592a47d5650642a5d3abcc333450d, type: 2}
 --- !u!4 &124220213
 Transform:
   m_ObjectHideFlags: 0

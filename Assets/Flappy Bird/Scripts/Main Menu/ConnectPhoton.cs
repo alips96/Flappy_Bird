@@ -2,6 +2,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using System;
 
 public class ConnectPhoton : MonoBehaviourPunCallbacks
 {
@@ -23,9 +24,10 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
     {
         InputField inputField = inputFieldObject.GetComponent<InputField>();
 
-        if (inputField.text != null)
+        if (inputField.text.Length > 0)
         {
             isConnecting = true;
+
             inputFieldObject.SetActive(false);
             statusText.SetActive(true);
             statusText.GetComponent<Text>().text = "Searching...";
@@ -40,6 +42,22 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
                 PhotonNetwork.ConnectUsingSettings();
             }
         }
+    }
+
+    private void SaveCurrentClientName(string text)
+    {
+        //MasterManager.namesManager.namesList.Add(text);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            //MasterManager.namesManager.name1 = text;
+            PlayerPrefs.SetString("p1", text);
+        }
+        else
+        {
+            PlayerPrefs.SetString("p2", text);
+            //MasterManager.namesManager.name2 = text;
+        }
+
     }
 
     public override void OnConnectedToMaster()
@@ -78,6 +96,8 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
         Debug.Log("Client successfully joined a room.");
 
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+
+        SaveCurrentClientName(inputFieldObject.GetComponent<InputField>().text);
 
         if (playerCount != maxPlayersPerRoom)
         {
