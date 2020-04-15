@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class TestName : MonoBehaviour
+public class SetNames : MonoBehaviour
 {
     [SerializeField] private Text myText;
 
