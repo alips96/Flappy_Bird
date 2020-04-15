@@ -3,29 +3,24 @@ using UnityEngine.UI;
 
 public class ScoreCounter : MonoBehaviour
 {
-    private ScoreMaster scoreMaster;
+    private EventManager eventManager;
     private int score;
-    private int highScore;
     public Text scoreNomText;
-    public Text highScoreText;
 
     private void OnEnable()
     {
         SetInitialReferences();
-        highScore = PlayerPrefs.GetInt("HighScore", 0);
-        highScoreText.text = "High Score: " + highScore.ToString();
-
-        scoreMaster.EventIncrementScore += IncrementScore;
+        eventManager.EventIncrementScore += IncrementScore;
     }
 
     private void OnDisable()
     {
-        scoreMaster.EventIncrementScore -= IncrementScore;
+        eventManager.EventIncrementScore -= IncrementScore;
     }
 
     private void SetInitialReferences()
     {
-        scoreMaster = GetComponent<ScoreMaster>();
+        eventManager = GetComponent<EventManager>();
     }
 
     private void IncrementScore()
@@ -34,12 +29,5 @@ public class ScoreCounter : MonoBehaviour
 
         //SetUI
         scoreNomText.text = "Score: " + score.ToString();
-
-        if(score > highScore)
-        {
-            highScore = score;
-            PlayerPrefs.SetInt("HighScore", highScore);
-            highScoreText.text = "High Score: " + highScore.ToString();
-        }
     }
 }
