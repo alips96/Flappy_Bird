@@ -359,7 +359,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 144379551}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1280841297}
+        m_MethodName: ToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &144379551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,7 +628,7 @@ GameObject:
   - component: {fileID: 518235023}
   - component: {fileID: 518235022}
   m_Layer: 5
-  m_Name: Button_repeat
+  m_Name: Button_LoadLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -685,7 +696,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 518235023}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1280841297}
+        m_MethodName: RestartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &518235023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1261,6 +1283,10 @@ GameObject:
   - component: {fileID: 1280841295}
   - component: {fileID: 1280841293}
   - component: {fileID: 1280841296}
+  - component: {fileID: 1280841297}
+  - component: {fileID: 1280841299}
+  - component: {fileID: 1280841298}
+  - component: {fileID: 1280841300}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1362,6 +1388,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadLevelCanvas: {fileID: 389846891}
+--- !u!114 &1280841297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280841289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43f65575af87404b864e835c6dce876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1280841298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280841289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c083784fa4238d14d8b4dfb20d01b015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1280841299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280841289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ca2be98ec7c4949a3e74c01c4ee500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1280841300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280841289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0653f7475d05ff6488225a83f85bb118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1747961967
 GameObject:
   m_ObjectHideFlags: 0

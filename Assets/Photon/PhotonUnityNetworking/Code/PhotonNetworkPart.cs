@@ -1343,7 +1343,7 @@ namespace Photon.Pun
             }
             else
             {
-                PhotonNetwork.SetLevelInPropsIfSynced(SceneManagerHelper.ActiveSceneName);
+                PhotonNetwork.SetLevelInPropsIfSynced(SceneManager.ActiveSceneName);
             }
 
             // Debug.Log("OnLevelWasLoaded photonViewList.Count: " + photonViewList.Count); // Exit Games internal log
@@ -1971,14 +1971,14 @@ namespace Photon.Pun
             object sceneId = PhotonNetwork.CurrentRoom.CustomProperties[CurrentSceneProperty];
             if (sceneId is int)
             {
-                if (SceneManagerHelper.ActiveSceneBuildIndex != (int)sceneId)
+                if (SceneManager.ActiveSceneBuildIndex != (int)sceneId)
                 {
                     PhotonNetwork.LoadLevel((int)sceneId);
                 }
             }
             else if (sceneId is string)
             {
-                if (SceneManagerHelper.ActiveSceneName != (string)sceneId)
+                if (SceneManager.ActiveSceneName != (string)sceneId)
                 {
                     PhotonNetwork.LoadLevel((string)sceneId);
                 }
@@ -2014,8 +2014,8 @@ namespace Photon.Pun
                 {
                     // if the new levelId does not equal the level in properties, there is a chance that build index and scene name refer to the same scene.
                     // as Unity does not provide all scenes with build index, we only check for the currently loaded scene (with a high chance this is the correct one).
-                    int scnIndex = SceneManagerHelper.ActiveSceneBuildIndex;
-                    string scnName = SceneManagerHelper.ActiveSceneName;
+                    int scnIndex = SceneManager.ActiveSceneBuildIndex;
+                    string scnName = SceneManager.ActiveSceneName;
 
                     if ((levelId.Equals(scnIndex) && levelIdInProps.Equals(scnName)) || (levelId.Equals(scnName) && levelIdInProps.Equals(scnIndex)))
                     {

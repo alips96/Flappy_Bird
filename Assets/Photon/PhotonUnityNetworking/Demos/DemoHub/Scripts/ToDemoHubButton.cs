@@ -64,7 +64,7 @@ namespace Photon.Pun.Demo.Hub
 	        bool sceneZeroLoaded = false;
 
 			#if UNITY_5 && !UNITY_5_0 && !UNITY_5_1 && !UNITY_5_2 || UNITY_5_3_OR_NEWER
-	        sceneZeroLoaded = SceneManager.GetActiveScene().buildIndex == 0;
+	        sceneZeroLoaded = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 0;
 	        #else
 	        sceneZeroLoaded = Application.loadedLevel == 0;
 	        #endif
@@ -86,7 +86,7 @@ namespace Photon.Pun.Demo.Hub
 		public void BackToHub()
 		{
 			PhotonNetwork.Disconnect();
-			SceneManager.LoadScene(0);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 		}
 
 	}

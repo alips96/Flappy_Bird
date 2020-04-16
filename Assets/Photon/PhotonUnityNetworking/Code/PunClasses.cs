@@ -931,20 +931,20 @@ namespace Photon.Pun
     }
 
 
-    public class SceneManagerHelper
+    public class SceneManager
     {
         public static string ActiveSceneName
         {
             get
             {
-                Scene s = SceneManager.GetActiveScene();
+                Scene s = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
                 return s.name;
             }
         }
 
         public static int ActiveSceneBuildIndex
         {
-            get { return SceneManager.GetActiveScene().buildIndex; }
+            get { return UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex; }
         }
 
 
@@ -952,7 +952,7 @@ namespace Photon.Pun
         /// <summary>In Editor, we can access the active scene's name.</summary>
         public static string EditorActiveSceneName
         {
-            get { return SceneManager.GetActiveScene().name; }
+            get { return UnityEngine.SceneManagement.SceneManager.GetActiveScene().name; }
         }
         #endif
     }

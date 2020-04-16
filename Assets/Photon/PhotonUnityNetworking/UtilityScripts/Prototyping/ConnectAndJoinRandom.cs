@@ -45,7 +45,7 @@ namespace Photon.Pun.UtilityScripts
         {
             Debug.Log("ConnectAndJoinRandom.ConnectNow() will now call: PhotonNetwork.ConnectUsingSettings().");
             PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.GameVersion = this.Version + "." + SceneManagerHelper.ActiveSceneBuildIndex;
+            PhotonNetwork.GameVersion = this.Version + "." + SceneManager.ActiveSceneBuildIndex;
         }
 
 

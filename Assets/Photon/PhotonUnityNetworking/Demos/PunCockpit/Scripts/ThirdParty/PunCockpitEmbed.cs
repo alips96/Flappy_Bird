@@ -50,11 +50,11 @@ namespace Photon.Pun.Demo.Cockpit
 
             //Debug.Log (SceneManager.GetSceneByName (PunCockpit_scene).IsValid());
 
-            SceneManager.LoadScene(PunCockpit_scene, LoadSceneMode.Additive);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(PunCockpit_scene, LoadSceneMode.Additive);
 
             yield return new WaitForSeconds(1f);
 
-            if (SceneManager.sceneCount == 1)
+            if (UnityEngine.SceneManagement.SceneManager.sceneCount == 1)
             {
 
                 AutoConnect.ConnectNow();

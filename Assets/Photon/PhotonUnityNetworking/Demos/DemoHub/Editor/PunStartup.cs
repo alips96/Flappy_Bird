@@ -39,7 +39,7 @@ public class PunStartup : MonoBehaviour
             return;
         }
 
-        if (string.IsNullOrEmpty(SceneManagerHelper.EditorActiveSceneName) && EditorBuildSettings.scenes.Length == 0)
+        if (string.IsNullOrEmpty(Photon.Pun.SceneManager.EditorActiveSceneName) && EditorBuildSettings.scenes.Length == 0)
         {
             LoadPunDemoHub();
             SetPunDemoBuildSettings();

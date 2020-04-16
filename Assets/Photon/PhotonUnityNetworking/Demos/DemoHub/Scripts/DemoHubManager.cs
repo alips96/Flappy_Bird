@@ -278,7 +278,7 @@ namespace Photon.Pun.Demo.Hub
 				return;
 			}
 
-			SceneManager.LoadScene(_data[currentSelection].Scene);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(_data[currentSelection].Scene);
 		}
 
 		public void OpenTutorialLink()
