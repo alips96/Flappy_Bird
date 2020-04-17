@@ -1,6 +1,5 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Pun;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,25 +8,19 @@ public class ApplyGameOver : MonoBehaviour
     [SerializeField] private GameObject loadLevelCanvas;
     private bool isWon = false;
     private Text victoryDialog;
+    [SerializeField] private Text ScoreText;
+    [SerializeField] private Text playerNames;
+    [SerializeField] private Text otherScoreText;
+    [SerializeField] private Text otherplayerNames;
 
-    private void OnEnable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived += DetectPlayerToGameOver;
-    }
+    private void OnEnable() => PhotonNetwork.NetworkingClient.EventReceived += DetectPlayerToGameOver;
 
-    private void OnDisable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived -= DetectPlayerToGameOver;
-    }
+    private void OnDisable() => PhotonNetwork.NetworkingClient.EventReceived -= DetectPlayerToGameOver;
 
     private void DetectPlayerToGameOver(EventData obj)
     {
         if(obj.Code == 2)
         {
-            //Time.timeScale = 0;
-            //loadLevelCanvas.SetActive(true);
-            //loadLevelCanvas.GetComponentInChildren<Text>().text = Convert.ToString(obj.CustomData) + "and my local number is: " + PhotonNetwork.LocalPlayer.ActorNumber;
-
             int clientId = (int)obj.CustomData;
 
             if (clientId != PhotonNetwork.LocalPlayer.ActorNumber)
@@ -41,8 +34,8 @@ public class ApplyGameOver : MonoBehaviour
 
     private void PerformGameOver()
     {
-        //Time.timeScale = 0;
         FreezeGame();
+        SetNamesAndScore();
         loadLevelCanvas.SetActive(true);
         victoryDialog = loadLevelCanvas.GetComponentInChildren<Text>();
 
@@ -58,6 +51,12 @@ public class ApplyGameOver : MonoBehaviour
         }
     }
 
+    private void SetNamesAndScore()
+    {
+        ScoreText.text = otherScoreText.text;
+        playerNames.text = otherplayerNames.text;
+    }
+
     private void FreezeGame()
     {
         MoveLeft groundMovement = GameObject.Find("Ground").GetComponent<MoveLeft>();
@@ -68,15 +67,11 @@ public class ApplyGameOver : MonoBehaviour
 
         GameObject[] columns = GameObject.FindGameObjectsWithTag("Column");
         GameObject bird = GameObject.FindGameObjectWithTag("Player");
-
-        bird.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-        //bird.GetComponent<Animator>().enabled = false;
+        Destroy(bird);
 
         foreach (GameObject item in columns)
         {
-            item.GetComponent<MoveLeft>().enabled = false;
+            Destroy(item);
         }
-
-        
     }
 }

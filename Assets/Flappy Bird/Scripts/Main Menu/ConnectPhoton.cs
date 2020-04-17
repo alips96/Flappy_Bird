@@ -17,7 +17,7 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        Screen.SetResolution(500, 500, false);
+        //Screen.SetResolution(500, 500, false);
     }
 
     public void FindOpponent() //called by start button
