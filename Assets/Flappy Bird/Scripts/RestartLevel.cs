@@ -2,9 +2,12 @@
 using Photon.Pun;
 using ExitGames.Client.Photon;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RestartLevel : MonoBehaviour
 {
+    public GameObject textInfo;
+
     private void OnEnable()
     {
         PhotonNetwork.NetworkingClient.EventReceived += ReloadCurrentLevel;
@@ -20,7 +23,13 @@ public class RestartLevel : MonoBehaviour
         if (obj.Code != 3)
             return;
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-        PhotonNetwork.LoadLevel("GamePlay");
+        if(PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            textInfo.SetActive(true);
+        }
     }
 }

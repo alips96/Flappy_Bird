@@ -10,19 +10,9 @@ public class ApplyGameOver : MonoBehaviour
     private bool isWon = false;
     private Text victoryDialog;
 
-    private MoveLeft moveLeft;
-    private ColumnSpawner columnSpawner;
-
     private void OnEnable()
     {
-        SetInitialReferences();
         PhotonNetwork.NetworkingClient.EventReceived += DetectPlayerToGameOver;
-    }
-
-    private void SetInitialReferences()
-    {
-        moveLeft = GameObject.Find("Ground").GetComponent<MoveLeft>();
-        columnSpawner = GetComponent<ColumnSpawner>();
     }
 
     private void OnDisable()
@@ -52,7 +42,7 @@ public class ApplyGameOver : MonoBehaviour
     private void PerformGameOver()
     {
         //Time.timeScale = 0;
-        columnSpawner.enabled = false;
+        FreezeGame();
         loadLevelCanvas.SetActive(true);
         victoryDialog = loadLevelCanvas.GetComponentInChildren<Text>();
 
@@ -66,5 +56,27 @@ public class ApplyGameOver : MonoBehaviour
             victoryDialog.color = Color.red;
             loadLevelCanvas.GetComponentInChildren<Text>().text = "You lost :(";
         }
+    }
+
+    private void FreezeGame()
+    {
+        MoveLeft groundMovement = GameObject.Find("Ground").GetComponent<MoveLeft>();
+        ColumnSpawner columnSpawner = GetComponent<ColumnSpawner>();
+
+        groundMovement.enabled = false;
+        columnSpawner.enabled = false;
+
+        GameObject[] columns = GameObject.FindGameObjectsWithTag("Column");
+        GameObject bird = GameObject.FindGameObjectWithTag("Player");
+
+        bird.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        //bird.GetComponent<Animator>().enabled = false;
+
+        foreach (GameObject item in columns)
+        {
+            item.GetComponent<MoveLeft>().enabled = false;
+        }
+
+        
     }
 }
