@@ -5,7 +5,7 @@ using ExitGames.Client.Photon;
 
 public class ColumnSpawner : MonoBehaviour
 {
-    public GameObject columnPrefab;
+    [SerializeField] private GameObject columnPrefab;
     private float yPos;
     private float nextCheck;
     private float checkRate = 2;

@@ -5,7 +5,7 @@ public class ScoreCounter : MonoBehaviour
 {
     private EventManager eventManager;
     private int score;
-    public Text scoreNomText;
+    [SerializeField] private Text scoreNomText;
 
     private void OnEnable()
     {

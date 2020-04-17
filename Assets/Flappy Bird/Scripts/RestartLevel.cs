@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class RestartLevel : MonoBehaviour
 {
-    public GameObject textInfo;
+    [SerializeField] private GameObject textInfo;
 
     private void OnEnable()
     {

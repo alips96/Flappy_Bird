@@ -62,8 +62,6 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Connected to photon");
-
         if (isConnecting)
         {
             PhotonNetwork.JoinRandomRoom();
@@ -80,21 +78,15 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
         isConnecting = false;
         statusText.SetActive(false);
         inputFieldObject.SetActive(true);
-
-        Debug.Log($"Disconnected due to:  {cause}");
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Debug.Log("No clients waiting for an opponent, creating a new room");
-
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("Client successfully joined a room.");
-
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
         SaveCurrentClientName(inputFieldObject.GetComponent<InputField>().text);
@@ -102,12 +94,10 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
         if (playerCount != maxPlayersPerRoom)
         {
             statusText.GetComponent<Text>().text = "Waiting For Opponent..";
-            Debug.Log("Client is waitng for an opponent");
         }
         else
         {
             statusText.GetComponent<Text>().text = "Opponent Found!";
-            Debug.Log("Matching is ready to begin");
         }
     }
 
@@ -116,8 +106,6 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersPerRoom)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
-
-            Debug.Log("Opponent Found");
             statusText.GetComponent<Text>().text = "Match is ready to begin";
 
             PhotonNetwork.LoadLevel("GamePlay");

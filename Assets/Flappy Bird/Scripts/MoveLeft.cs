@@ -2,7 +2,7 @@
 
 public class MoveLeft : MonoBehaviour
 {
-    public float speed;
+    [SerializeField] private float speed;
     private float groundSize;
 
     // Start is called before the first frame update

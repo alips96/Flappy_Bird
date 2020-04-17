@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
-using UnityEngine.SceneManagement;
-using System;
 using System.Collections;
 
 public class GoToMainMenu : MonoBehaviour
 {
     private void OnEnable()
     {
-        //PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.NetworkingClient.EventReceived += LoadMainMenuScene;
     }
 

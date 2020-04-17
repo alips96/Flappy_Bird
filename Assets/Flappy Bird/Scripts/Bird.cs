@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Bird : MonoBehaviourPun
 {
-    public float speed;
+    [SerializeField] private float speed;
     private Rigidbody2D myRigidbody;
 
     // Start is called before the first frame update
