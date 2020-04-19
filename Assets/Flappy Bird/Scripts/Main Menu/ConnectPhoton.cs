@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using System;
+using ExitGames.Client.Photon;
 
 public class ConnectPhoton : MonoBehaviourPunCallbacks
 {
@@ -46,18 +47,7 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
 
     private void SaveCurrentClientName(string text)
     {
-        //MasterManager.namesManager.namesList.Add(text);
-        if (PhotonNetwork.IsMasterClient)
-        {
-            //MasterManager.namesManager.name1 = text;
-            PlayerPrefs.SetString("p1", text);
-        }
-        else
-        {
-            PlayerPrefs.SetString("p2", text);
-            //MasterManager.namesManager.name2 = text;
-        }
-
+        PlayerPrefs.SetString("myName", text);
     }
 
     public override void OnConnectedToMaster()
@@ -107,7 +97,6 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             statusText.GetComponent<Text>().text = "Match is ready to begin";
-
             PhotonNetwork.LoadLevel("GamePlay");
         }
     }
