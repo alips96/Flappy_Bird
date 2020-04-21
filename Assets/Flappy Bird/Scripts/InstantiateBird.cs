@@ -24,7 +24,7 @@ public class InstantiateBird : MonoBehaviourPun
         }
         else
         {
-            player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(xSpawnPos, -1, 0), Quaternion.identity);
+            player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(xSpawnPos, 0, 0), Quaternion.identity);
         }
 
         //Set Animation
