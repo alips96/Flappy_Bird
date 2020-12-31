@@ -98,4 +98,10 @@ public class ConnectPhoton : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("GamePlay");
         }
     }
+
+    public void QuitApp() //Called by Quit Button
+    {
+        PhotonNetwork.Disconnect();
+        Application.Quit();
+    }
 }

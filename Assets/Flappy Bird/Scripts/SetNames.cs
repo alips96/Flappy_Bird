@@ -1,6 +1,8 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,10 +36,17 @@ public class SetNames : MonoBehaviour
         if (obj.Code != 5)
             return;
 
-        name1 = PlayerPrefs.GetString("myName");
-        name2 = obj.CustomData.ToString();
+        name1 = ToStandard(PlayerPrefs.GetString("myName"));
+        name2 = ToStandard(obj.CustomData.ToString());
 
         if(TextNames != null)
             TextNames.text = name1 + " Vs " + name2;
+    }
+
+    private string ToStandard(string v)
+    {
+        StringBuilder newString = new StringBuilder(v);
+
+        return newString.Replace(newString[0], char.ToUpper(newString[0]), 0, 1).ToString();
     }
 }
