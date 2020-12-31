@@ -2,8 +2,6 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
-using System;
-using ExitGames.Client.Photon;
 
 public class ConnectPhoton : MonoBehaviourPunCallbacks
 {
