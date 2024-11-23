@@ -99,9 +99,9 @@ namespace Photon.Pun.Demo.Asteroids
             Vector3 force = (rot * Vector3.forward) * acceleration * 1000.0f * MovementSpeed * Time.fixedDeltaTime;
             rigidbody.AddForce(force);
 
-            if (rigidbody.velocity.magnitude > (MaxSpeed * 1000.0f))
+            if (rigidbody.linearVelocity.magnitude > (MaxSpeed * 1000.0f))
             {
-                rigidbody.velocity = rigidbody.velocity.normalized * MaxSpeed * 1000.0f;
+                rigidbody.linearVelocity = rigidbody.linearVelocity.normalized * MaxSpeed * 1000.0f;
             }
 
             CheckExitScreen();
@@ -125,7 +125,7 @@ namespace Photon.Pun.Demo.Asteroids
         [PunRPC]
         public void DestroySpaceship()
         {
-            rigidbody.velocity = Vector3.zero;
+            rigidbody.linearVelocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
 
             collider.enabled = false;

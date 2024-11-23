@@ -17,7 +17,7 @@ public class Bird : MonoBehaviourPun
             if (Input.GetMouseButtonDown(0))
             {
                 //flap
-                myRigidbody.velocity = Vector2.up * speed;
+                myRigidbody.linearVelocity = Vector2.up * speed;
             }
         }
     }
