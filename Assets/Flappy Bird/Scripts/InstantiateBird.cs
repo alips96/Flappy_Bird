@@ -17,20 +17,10 @@ public class InstantiateBird : MonoBehaviourPun
 
     private void InstantiateBirdPrefab()
     {
-        //Set Prefabs
-        if (PhotonNetwork.IsMasterClient)
-        {
-            player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(xSpawnPos, 1, 0), Quaternion.identity);
-        }
-        else
-        {
-            player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(xSpawnPos, 0, 0), Quaternion.identity);
-        }
 
-        //Set Animation
-        if (player.GetPhotonView().IsMine)
-        {
-            player.GetComponent<Animator>().runtimeAnimatorController = opponentAnimator;
-        }
+        player = GameObject.Instantiate(playerPrefab, new Vector3(xSpawnPos, 1, 0), Quaternion.identity);
+
+        player.GetComponent<Animator>().runtimeAnimatorController = opponentAnimator;
+
     }
 }

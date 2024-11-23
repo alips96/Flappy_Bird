@@ -7,16 +7,11 @@ public class EventManager : MonoBehaviour
 {
     public delegate void GeneralEventHandler();
     public event GeneralEventHandler EventIncrementScore;
+    public event GeneralEventHandler EventGameOver;
 
-    public void CallEventGameOver(int actorNumber)
+    public void CallEventGameOver()
     {
-        PhotonNetwork.RaiseEvent(2, actorNumber, new RaiseEventOptions { Receivers = ReceiverGroup.All }, new SendOptions { Reliability = true });
-    }
-
-    internal void CallEventRestartLevel()
-    {
-        int levelNumber = 1;
-        PhotonNetwork.RaiseEvent(3, levelNumber, new RaiseEventOptions { Receivers = ReceiverGroup.All }, new SendOptions { Reliability = true });
+        EventGameOver?.Invoke();
     }
 
     internal void CallEventGotoMainMenu()

@@ -12,13 +12,10 @@ public class Bird : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                //flap
-                myRigidbody.linearVelocity = Vector2.up * speed;
-            }
+            //flap
+            myRigidbody.linearVelocity = Vector2.up * speed;
         }
     }
 }

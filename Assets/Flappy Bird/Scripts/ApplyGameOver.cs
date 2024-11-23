@@ -1,35 +1,32 @@
-﻿using ExitGames.Client.Photon;
-using Photon.Pun;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ApplyGameOver : MonoBehaviour
 {
     [SerializeField] private GameObject loadLevelCanvas;
-    private bool isWon = false;
     private Text victoryDialog;
     [SerializeField] private Text ScoreText;
     [SerializeField] private Text playerNames;
     [SerializeField] private Text otherScoreText;
     [SerializeField] private Text otherplayerNames;
 
-    private void OnEnable() => PhotonNetwork.NetworkingClient.EventReceived += DetectPlayerToGameOver;
+    private EventManager eventManager;
 
-    private void OnDisable() => PhotonNetwork.NetworkingClient.EventReceived -= DetectPlayerToGameOver;
-
-    private void DetectPlayerToGameOver(EventData obj)
+    private void OnEnable()
     {
-        if(obj.Code == 2)
-        {
-            int clientId = (int)obj.CustomData;
+        SetInitialReferences();
 
-            if (clientId != PhotonNetwork.LocalPlayer.ActorNumber)
-            {
-                isWon = true;
-            }
+        eventManager.EventGameOver += PerformGameOver;
+    }
 
-            PerformGameOver();
-        }
+    private void SetInitialReferences()
+    {
+        eventManager = GameObject.Find("GameManager").GetComponent<EventManager>();
+    }
+
+    private void OnDisable()
+    {
+        eventManager.EventGameOver -= PerformGameOver;
     }
 
     private void PerformGameOver()
@@ -39,16 +36,8 @@ public class ApplyGameOver : MonoBehaviour
         loadLevelCanvas.SetActive(true);
         victoryDialog = loadLevelCanvas.GetComponentInChildren<Text>();
 
-        if (isWon)
-        {
-            victoryDialog.color = Color.green;
-            loadLevelCanvas.GetComponentInChildren<Text>().text = "You Won!";
-        }
-        else
-        {
-            victoryDialog.color = Color.red;
-            loadLevelCanvas.GetComponentInChildren<Text>().text = "You lost :(";
-        }
+        victoryDialog.color = Color.red;
+        loadLevelCanvas.GetComponentInChildren<Text>().text = "You lost :(";
     }
 
     private void SetNamesAndScore()

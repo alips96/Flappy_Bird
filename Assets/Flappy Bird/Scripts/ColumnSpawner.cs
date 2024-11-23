@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using Photon.Pun;
-using Photon.Realtime;
-using ExitGames.Client.Photon;
 
 public class ColumnSpawner : MonoBehaviour
 {
@@ -11,37 +8,20 @@ public class ColumnSpawner : MonoBehaviour
     private float checkRate = 2;
     private float deductionRate;
 
-    private void OnEnable()
-    {
-        yPos = transform.position.y;
-        PhotonNetwork.NetworkingClient.EventReceived += SpawnColumns;
-    }
-
-    private void OnDisable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived -= SpawnColumns;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if(Time.time > nextCheck)
+        if (Time.time > nextCheck)
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                Vector3 spawnPos = new Vector3(transform.position.x, Random.Range(yPos - 1, yPos + 2.8f));
-                PhotonNetwork.RaiseEvent(1, spawnPos, new RaiseEventOptions { Receivers = ReceiverGroup.All }, new SendOptions { Reliability = false });
-            }
+            Vector3 spawnPos = new Vector3(transform.position.x, Random.Range(yPos - 1, yPos + 2.8f));
+            SpawnColumns(spawnPos);
+
             nextCheck = Time.time + checkRate;
         }
     }
 
-    private void SpawnColumns(EventData obj)
+    private void SpawnColumns(Vector3 spawnPos)
     {
-        if (obj.Code != 1)
-            return;
-
-        Vector3 spawnPos = (Vector3) obj.CustomData;
         GameObject column = Instantiate(columnPrefab, spawnPos, Quaternion.identity);
         SetColumnSize(column); // To adjust difficulty level.
         Destroy(column, 3.75f);

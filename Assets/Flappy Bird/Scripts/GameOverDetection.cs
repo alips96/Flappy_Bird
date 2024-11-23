@@ -12,9 +12,6 @@ public class GameOverDetection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!gameObject.GetPhotonView().IsMine)
-            return;
-
-        gameOverScript.CallEventGameOver(PhotonNetwork.LocalPlayer.ActorNumber);
+        gameOverScript.CallEventGameOver();
     }
 }
