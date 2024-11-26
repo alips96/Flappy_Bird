@@ -5,7 +5,7 @@ public class BirdAnimation : NetworkBehaviour
 {
     [SerializeField] private RuntimeAnimatorController playerAnimatorController;
 
-    void Start()
+    private void Start()
     {
         if(IsOwner)
             GetComponent<Animator>().runtimeAnimatorController = playerAnimatorController;
