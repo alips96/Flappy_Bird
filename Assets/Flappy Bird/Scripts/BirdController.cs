@@ -1,17 +1,18 @@
-﻿using Photon.Pun;
+﻿using Unity.Netcode;
 using UnityEngine;
 
-public class Bird : MonoBehaviourPun
+public class BirdController : NetworkBehaviour
 {
     [SerializeField] private float speed;
     private Rigidbody2D myRigidbody;
 
-    // Start is called before the first frame update
     void Start() => myRigidbody = GetComponent<Rigidbody2D>();
 
-    // Update is called once per frame
     void Update()
     {
+        if (!IsOwner)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             //flap

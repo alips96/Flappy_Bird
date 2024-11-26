@@ -26,7 +26,7 @@ public class MainMenuManager : MonoBehaviour
         {
             if (NetworkManager.Singleton.ConnectedClients.Count == MAX_PLAYERS_COUNT)
             {
-                NetworkManager.Singleton.SceneManager.LoadScene("TestScene", LoadSceneMode.Single);
+                NetworkManager.Singleton.SceneManager.LoadScene("GamePlay", LoadSceneMode.Single);
             }
         }
     }
