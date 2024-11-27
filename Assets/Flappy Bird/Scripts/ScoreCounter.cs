@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreCounter : MonoBehaviour
+public class ScoreCounter : NetworkBehaviour
 {
     private EventManager eventManager;
-    private int score;
     [SerializeField] private Text scoreNomText;
+
+    private NetworkVariable<int> score = new();
 
     private void OnEnable()
     {
@@ -18,6 +20,11 @@ public class ScoreCounter : MonoBehaviour
         eventManager.EventIncrementScore -= IncrementScore;
     }
 
+    public override void OnNetworkSpawn()
+    {
+        score.OnValueChanged += UpdateScoreUI;
+    }
+
     private void SetInitialReferences()
     {
         eventManager = GetComponent<EventManager>();
@@ -25,9 +32,11 @@ public class ScoreCounter : MonoBehaviour
 
     private void IncrementScore()
     {
-        score++;
+        score.Value++;
+    }
 
-        //SetUI
-        scoreNomText.text = "Score: " + score.ToString();
+    private void UpdateScoreUI(int previousValue, int newValue)
+    {
+        scoreNomText.text = "Score: " + score.Value.ToString();
     }
 }

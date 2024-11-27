@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using Unity.Netcode;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class ApplyGameOver : MonoBehaviour
+public class ApplyGameOver : NetworkBehaviour
 {
     [SerializeField] private GameObject loadLevelCanvas;
     private Text victoryDialog;
@@ -29,15 +31,41 @@ public class ApplyGameOver : MonoBehaviour
         eventManager.EventGameOver -= PerformGameOver;
     }
 
-    private void PerformGameOver()
+    private void PerformGameOver(ulong loserClientId) //Run by server.
     {
         FreezeGame();
-        SetNamesAndScore();
+        GameOverClientRpc(loserClientId);
+        DisconnectClients();
+    }
+
+    private static void DisconnectClients()
+    {
+        foreach (var clientId in NetworkManager.Singleton.ConnectedClientsIds.Skip(1))
+        {
+            NetworkManager.Singleton.DisconnectClient(clientId);
+        }
+
+        // Shutdown the server
+        NetworkManager.Singleton.Shutdown();
+    }
+
+    [ClientRpc]
+    private void GameOverClientRpc(ulong loserClientId)
+    {
+        //SetNamesAndScore(); //TBD
         loadLevelCanvas.SetActive(true);
         victoryDialog = loadLevelCanvas.GetComponentInChildren<Text>();
 
-        victoryDialog.color = Color.red;
-        loadLevelCanvas.GetComponentInChildren<Text>().text = "You lost :(";
+        if (NetworkManager.Singleton.LocalClientId == loserClientId)
+        {
+            victoryDialog.color = Color.red;
+            loadLevelCanvas.GetComponentInChildren<Text>().text = "You Lost :(";
+        }
+        else
+        {
+            victoryDialog.color = Color.green;
+            loadLevelCanvas.GetComponentInChildren<Text>().text = "You Won!";
+        }
     }
 
     private void SetNamesAndScore()
@@ -46,7 +74,7 @@ public class ApplyGameOver : MonoBehaviour
         playerNames.text = otherplayerNames.text;
     }
 
-    private void FreezeGame()
+    public void FreezeGame()
     {
         MoveLeft groundMovement = GameObject.Find("Ground").GetComponent<MoveLeft>();
         ColumnSpawner columnSpawner = GetComponent<ColumnSpawner>();
@@ -55,8 +83,12 @@ public class ApplyGameOver : MonoBehaviour
         columnSpawner.enabled = false;
 
         GameObject[] columns = GameObject.FindGameObjectsWithTag("Column");
-        GameObject bird = GameObject.FindGameObjectWithTag("Player");
-        Destroy(bird);
+        GameObject[] birds = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (var bird in birds)
+        {
+            Destroy(bird);
+        }
 
         foreach (GameObject item in columns)
         {

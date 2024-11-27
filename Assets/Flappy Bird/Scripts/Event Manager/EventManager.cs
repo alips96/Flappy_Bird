@@ -1,23 +1,16 @@
-﻿using Photon.Pun;
-using UnityEngine;
-using Photon.Realtime;
-using ExitGames.Client.Photon;
+﻿using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
     public delegate void GeneralEventHandler();
     public event GeneralEventHandler EventIncrementScore;
-    public event GeneralEventHandler EventGameOver;
 
-    public void CallEventGameOver()
-    {
-        EventGameOver?.Invoke();
-    }
+    public delegate void GameOverEventHandler(ulong loserClientId);
+    public event GameOverEventHandler EventGameOver;
 
-    internal void CallEventGotoMainMenu()
+    public void CallEventGameOver(ulong ownerClientId)
     {
-        int levelNumber = 0;
-        PhotonNetwork.RaiseEvent(4, levelNumber, new RaiseEventOptions { Receivers = ReceiverGroup.All }, new SendOptions { Reliability = true });
+        EventGameOver?.Invoke(ownerClientId);
     }
 
     internal void CallEventIncrementScore()

@@ -1,17 +1,27 @@
-﻿using UnityEngine;
-using Photon.Pun;
+﻿using Unity.Netcode;
+using UnityEngine;
 
-public class GameOverDetection : MonoBehaviour
+public class GameOverDetection : NetworkBehaviour
 {
-    private EventManager gameOverScript;
+    private EventManager eventMaster;
 
     private void Start()
     {
-        gameOverScript = GameObject.Find("GameManager").GetComponent<EventManager>();
+        eventMaster = GameObject.Find("GameManager").GetComponent<EventManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameOverScript.CallEventGameOver();
+        if (IsOwner)
+        {
+            NotifyGameOverServerRpc();
+        }
+    }
+
+    [ServerRpc(RequireOwnership = true)]
+    private void NotifyGameOverServerRpc()
+    {
+        Debug.Log("Game over occured! " + OwnerClientId);
+        eventMaster.CallEventGameOver(OwnerClientId);
     }
 }

@@ -1,25 +1,32 @@
-﻿using System;
+﻿using Unity.Netcode;
 using UnityEngine;
 
 public class ScoreDetector : MonoBehaviour
 {
-    private const float birdxPostition = -1.3f;
-    private EventManager eventMaster;
     private GameObject gameManager;
+    private EventManager eventMaster;
+    private float birdXPos;
+    private Transform myTransform;
 
-    // Start is called before the first frame update
     private void Start()
     {
-        eventMaster = GameObject.Find("GameManager").GetComponent<EventManager>();
+        gameManager = GameObject.Find("GameManager");
+
+        eventMaster = gameManager.GetComponent<EventManager>();
+        birdXPos = gameManager.GetComponent<InstantiateBird>().xSpawnPos;
+
+        myTransform = transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(transform.position.x < birdxPostition)
+        if (NetworkManager.Singleton.IsServer)
         {
-            eventMaster.CallEventIncrementScore();
-            Destroy(this);
+            if (myTransform.position.x < birdXPos)
+            {
+                eventMaster.CallEventIncrementScore();
+                Destroy(this);
+            }
         }
     }
 }

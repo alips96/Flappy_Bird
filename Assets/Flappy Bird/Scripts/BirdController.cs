@@ -10,12 +10,18 @@ public class BirdController : NetworkBehaviour
 
     void Update()
     {
-        if (!IsOwner)
-            return;
+        //if (Input.GetMouseButtonDown(0) && !IsOwner)
+        //{
+        //    NetworkObject.ChangeOwnership(NetworkManager.Singleton.LocalClientId);
+        //}
+
+        //if (IsOwner && Input.GetMouseButtonDown(0))
+        //{
+        //    myRigidbody.linearVelocity = Vector2.up * speed;
+        //}
 
         if (Input.GetMouseButtonDown(0))
         {
-            //flap
             myRigidbody.linearVelocity = Vector2.up * speed;
         }
     }

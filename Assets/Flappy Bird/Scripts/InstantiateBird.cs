@@ -8,7 +8,7 @@ public class InstantiateBird : MonoBehaviourPun
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private RuntimeAnimatorController opponentAnimator;
 
-    private const float X_SPAWN_POS = -1.3f;
+    public float xSpawnPos = -1.3f;
     private int ySpawnPos = 1;
 
     void Start()
@@ -33,7 +33,7 @@ public class InstantiateBird : MonoBehaviourPun
 
     private void SpawnPlayer(ulong clientId)
     {
-        GameObject playerInstance = Instantiate(playerPrefab, new Vector2(X_SPAWN_POS, ySpawnPos++), Quaternion.identity);
+        GameObject playerInstance = Instantiate(playerPrefab, new Vector2(xSpawnPos, ySpawnPos), Quaternion.identity);
 
         playerInstance.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
     }

@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 1548241467705111207}
   - component: {fileID: 1548241467705111206}
   - component: {fileID: 1163694475610547096}
-  - component: {fileID: -178857314557322412}
   - component: {fileID: 2078502226}
   - component: {fileID: 2967409214213181934}
   - component: {fileID: -3299219585006605151}
   - component: {fileID: 6909848025338803390}
+  - component: {fileID: 8324679152844683813}
   m_Layer: 8
   m_Name: Bird
   m_TagString: Player
@@ -185,18 +185,6 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &-178857314557322412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1548241467705111210}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13a6c19f10b1b5249b57dac1ff4ef070, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &2078502226
 Animator:
   serializedVersion: 7
@@ -284,3 +272,16 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &8324679152844683813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548241467705111210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a6c19f10b1b5249b57dac1ff4ef070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
