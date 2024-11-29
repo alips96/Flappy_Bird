@@ -1,9 +1,8 @@
-﻿using Photon.Pun;
-using System.Linq;
+﻿using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
-public class InstantiateBird : MonoBehaviourPun
+public class InstantiateBird : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private RuntimeAnimatorController opponentAnimator;
@@ -11,7 +10,7 @@ public class InstantiateBird : MonoBehaviourPun
     public float xSpawnPos = -1.3f;
     private int ySpawnPos = 1;
 
-    void Start()
+    private void Start()
     {
         if (NetworkManager.Singleton.IsServer)
         {
@@ -24,11 +23,6 @@ public class InstantiateBird : MonoBehaviourPun
                 SpawnPlayer(clientId);
             }
         }
-    }
-
-    private void SetOpponentAnimation(GameObject playerInstance)
-    {
-        playerInstance.GetComponent<Animator>().runtimeAnimatorController = opponentAnimator;
     }
 
     private void SpawnPlayer(ulong clientId)

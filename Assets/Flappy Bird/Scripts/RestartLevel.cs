@@ -1,11 +1,17 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
-public class RestartLevel : MonoBehaviour
+public class RestartLevel : NetworkBehaviour
 {
     public void ReloadCurrentLevel() //Called by Restart button UI
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        ReloadLevelServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ReloadLevelServerRpc()
+    {
+        NetworkManager.Singleton.SceneManager.LoadScene("GamePlay", LoadSceneMode.Single);
     }
 
     public void GotoMainMenu() //Called by Main Menue button UI

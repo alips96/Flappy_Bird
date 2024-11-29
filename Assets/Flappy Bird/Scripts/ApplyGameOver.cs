@@ -23,7 +23,7 @@ public class ApplyGameOver : NetworkBehaviour
 
     private void SetInitialReferences()
     {
-        eventManager = GameObject.Find("GameManager").GetComponent<EventManager>();
+        eventManager = GetComponent<EventManager>();
     }
 
     private void OnDisable()
@@ -35,7 +35,7 @@ public class ApplyGameOver : NetworkBehaviour
     {
         FreezeGame();
         GameOverClientRpc(loserClientId);
-        DisconnectClients();
+        //DisconnectClients();
     }
 
     private static void DisconnectClients()
@@ -85,14 +85,14 @@ public class ApplyGameOver : NetworkBehaviour
         GameObject[] columns = GameObject.FindGameObjectsWithTag("Column");
         GameObject[] birds = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach (var bird in birds)
-        {
-            Destroy(bird);
-        }
-
         foreach (GameObject item in columns)
         {
             Destroy(item);
+        }
+
+        foreach (var bird in birds)
+        {
+            Destroy(bird);
         }
     }
 }
