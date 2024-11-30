@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Unity.Netcode;
+﻿using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +7,7 @@ public class ApplyGameOver : NetworkBehaviour
     [SerializeField] private GameObject loadLevelCanvas;
     private Text victoryDialog;
     [SerializeField] private Text ScoreText;
-    [SerializeField] private Text playerNames;
     [SerializeField] private Text otherScoreText;
-    [SerializeField] private Text otherplayerNames;
 
     private EventManager eventManager;
 
@@ -41,7 +37,6 @@ public class ApplyGameOver : NetworkBehaviour
     [ClientRpc]
     private void GameOverClientRpc(ulong loserClientId)
     {
-        //SetNamesAndScore(); //TBD
         loadLevelCanvas.SetActive(true);
         victoryDialog = loadLevelCanvas.GetComponentInChildren<Text>();
 
@@ -55,12 +50,6 @@ public class ApplyGameOver : NetworkBehaviour
             victoryDialog.color = Color.green;
             loadLevelCanvas.GetComponentInChildren<Text>().text = "You Won!";
         }
-    }
-
-    private void SetNamesAndScore()
-    {
-        ScoreText.text = otherScoreText.text;
-        playerNames.text = otherplayerNames.text;
     }
 
     public void FreezeGame()

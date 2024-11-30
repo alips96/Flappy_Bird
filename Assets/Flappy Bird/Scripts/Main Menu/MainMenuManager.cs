@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,11 +6,9 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private Text statusText;
 
-    private const string EMPTY_NAME_MESSAGE = "Your name is empty! Try again.";
-    private const int MAX_PLAYERS_COUNT = 2;
+    [SerializeField] private int maxPlayersCount = 2;
 
     private void Start()
     {
@@ -24,7 +21,7 @@ public class MainMenuManager : MonoBehaviour
 
         if (NetworkManager.Singleton.IsServer)
         {
-            if (NetworkManager.Singleton.ConnectedClients.Count == MAX_PLAYERS_COUNT)
+            if (NetworkManager.Singleton.ConnectedClients.Count == maxPlayersCount)
             {
                 NetworkManager.Singleton.SceneManager.LoadScene("GamePlay", LoadSceneMode.Single);
             }
@@ -33,28 +30,26 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnStartClient(bool connectAsHost) //Called by UI buttons.
     {
-        if (nameInputField.text.Length > 0)
+        try
         {
-            try
+            if (connectAsHost)
             {
-                if (connectAsHost)
-                {
-                    NetworkManager.Singleton.StartHost();
-                }
-                else
-                {
-                    NetworkManager.Singleton.StartClient();
-                }
+                NetworkManager.Singleton.StartHost();
             }
-            catch (Exception ex)
+            else
             {
-                Debug.LogError(ex.ToString());
-                statusText.text = "Failed to connect client.";
+                NetworkManager.Singleton.StartClient();
             }
         }
-        else
+        catch (Exception ex)
         {
-            statusText.text = EMPTY_NAME_MESSAGE;
+            Debug.LogError(ex.ToString());
+            statusText.text = "Failed to connect client.";
         }
+    }
+
+    public void QuitGame() //Called by Quit button.
+    {
+        Application.Quit();
     }
 }
