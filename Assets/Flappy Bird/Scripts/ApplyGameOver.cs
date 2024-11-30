@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,18 +36,6 @@ public class ApplyGameOver : NetworkBehaviour
     {
         FreezeGame();
         GameOverClientRpc(loserClientId);
-        //DisconnectClients();
-    }
-
-    private static void DisconnectClients()
-    {
-        foreach (var clientId in NetworkManager.Singleton.ConnectedClientsIds.Skip(1))
-        {
-            NetworkManager.Singleton.DisconnectClient(clientId);
-        }
-
-        // Shutdown the server
-        NetworkManager.Singleton.Shutdown();
     }
 
     [ClientRpc]
