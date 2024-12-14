@@ -8,6 +8,7 @@ public class ApplyGameOver : NetworkBehaviour
     private Text victoryDialog;
     [SerializeField] private Text ScoreText;
     [SerializeField] private Text otherScoreText;
+    [SerializeField] private MoveLeft groundMovement;
 
     private EventManager eventManager;
 
@@ -30,7 +31,8 @@ public class ApplyGameOver : NetworkBehaviour
 
     private void PerformGameOver(ulong loserClientId) //Run by server.
     {
-        FreezeGame();
+        FreezeGameClientRpc();
+        DestroyNetworkObjects();
         GameOverClientRpc(loserClientId);
     }
 
@@ -52,14 +54,17 @@ public class ApplyGameOver : NetworkBehaviour
         }
     }
 
-    public void FreezeGame()
+    [ClientRpc]
+    public void FreezeGameClientRpc()
     {
-        MoveLeft groundMovement = GameObject.Find("Ground").GetComponent<MoveLeft>();
         ColumnSpawner columnSpawner = GetComponent<ColumnSpawner>();
 
         groundMovement.enabled = false;
         columnSpawner.enabled = false;
+    }
 
+    private void DestroyNetworkObjects()
+    {
         GameObject[] columns = GameObject.FindGameObjectsWithTag("Column");
         GameObject[] birds = GameObject.FindGameObjectsWithTag("Player");
 
