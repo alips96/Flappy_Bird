@@ -8,21 +8,8 @@ public class BirdController : NetworkBehaviour
 
     void Start() => myRigidbody = GetComponent<Rigidbody2D>();
 
-    void Update()
+    public void MoveBird() //Called by the PlayerInput Script
     {
-        //if (Input.GetMouseButtonDown(0) && !IsOwner)
-        //{
-        //    NetworkObject.ChangeOwnership(NetworkManager.Singleton.LocalClientId);
-        //}
-
-        //if (IsOwner && Input.GetMouseButtonDown(0))
-        //{
-        //    myRigidbody.linearVelocity = Vector2.up * speed;
-        //}
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            myRigidbody.linearVelocity = Vector2.up * speed;
-        }
+        myRigidbody.linearVelocity = Vector2.up * speed;
     }
 }
