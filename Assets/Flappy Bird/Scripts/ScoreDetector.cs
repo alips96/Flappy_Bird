@@ -1,32 +1,31 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
+using UniRx;
 
 public class ScoreDetector : MonoBehaviour
 {
-    private GameObject gameManager;
     private EventManager eventMaster;
-    private float birdXPos;
-    private Transform myTransform;
+    private readonly ReactiveProperty<float> birdXPos = new();
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager");
+        if (!NetworkManager.Singleton.IsServer) return;
+
+        var gameManager = GameObject.Find("GameManager");
+        if (gameManager == null) return;
 
         eventMaster = gameManager.GetComponent<EventManager>();
-        birdXPos = gameManager.GetComponent<InstantiateBird>().xSpawnPos;
 
-        myTransform = transform;
-    }
+        birdXPos.Value = gameManager.GetComponent<InstantiateBird>().xSpawnPos;
 
-    void Update()
-    {
-        if (NetworkManager.Singleton.IsServer)
-        {
-            if (myTransform.position.x < birdXPos)
+        birdXPos
+            .Where(_ => transform.position.x < birdXPos.Value)
+            .Take(1) // trigger only once
+            .Subscribe(_ =>
             {
                 eventMaster.CallEventIncrementScore();
                 Destroy(this);
-            }
-        }
+            })
+            .AddTo(this);
     }
 }
