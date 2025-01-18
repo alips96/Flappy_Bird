@@ -5,7 +5,7 @@ using UniRx;
 public class ScoreDetector : MonoBehaviour
 {
     private EventManager eventMaster;
-    private readonly ReactiveProperty<float> birdXPos = new();
+    [SerializeField] private float birdXPos;
 
     private void Start()
     {
@@ -15,11 +15,10 @@ public class ScoreDetector : MonoBehaviour
         if (gameManager == null) return;
 
         eventMaster = gameManager.GetComponent<EventManager>();
+        birdXPos = gameManager.GetComponent<InstantiateBird>().xSpawnPos;
 
-        birdXPos.Value = gameManager.GetComponent<InstantiateBird>().xSpawnPos;
-
-        birdXPos
-            .Where(_ => transform.position.x < birdXPos.Value)
+        Observable.EveryUpdate()
+            .Where(_ => transform.position.x < birdXPos)
             .Take(1) // trigger only once
             .Subscribe(_ =>
             {

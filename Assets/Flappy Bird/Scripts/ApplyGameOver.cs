@@ -5,7 +5,6 @@ public class ApplyGameOver : NetworkBehaviour
 {
     [SerializeField] private GameObject loadLevelCanvas;
     [SerializeField] private TMPro.TMP_Text victoryDialog;
-    [SerializeField] private TMPro.TMP_Text ScoreText;
     [SerializeField] private MoveLeft groundMovement;
 
     private EventManager eventManager;
