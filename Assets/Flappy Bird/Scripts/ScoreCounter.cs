@@ -1,11 +1,10 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ScoreCounter : NetworkBehaviour
 {
     private EventManager eventManager;
-    [SerializeField] private Text scoreNomText;
+    [SerializeField] private TMPro.TMP_Text scoreNomText;
 
     private NetworkVariable<int> score = new();
 
@@ -37,6 +36,7 @@ public class ScoreCounter : NetworkBehaviour
 
     private void UpdateScoreUI(int previousValue, int newValue)
     {
+        Debug.Log("Score: " + score.Value);
         scoreNomText.text = "Score: " + score.Value.ToString();
     }
 }

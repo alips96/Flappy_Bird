@@ -1,13 +1,11 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ApplyGameOver : NetworkBehaviour
 {
     [SerializeField] private GameObject loadLevelCanvas;
-    private Text victoryDialog;
-    [SerializeField] private Text ScoreText;
-    [SerializeField] private Text otherScoreText;
+    [SerializeField] private TMPro.TMP_Text victoryDialog;
+    [SerializeField] private TMPro.TMP_Text ScoreText;
     [SerializeField] private MoveLeft groundMovement;
 
     private EventManager eventManager;
@@ -40,17 +38,16 @@ public class ApplyGameOver : NetworkBehaviour
     private void GameOverClientRpc(ulong loserClientId)
     {
         loadLevelCanvas.SetActive(true);
-        victoryDialog = loadLevelCanvas.GetComponentInChildren<Text>();
 
         if (NetworkManager.Singleton.LocalClientId == loserClientId)
         {
             victoryDialog.color = Color.red;
-            loadLevelCanvas.GetComponentInChildren<Text>().text = "You Lost :(";
+            victoryDialog.text = "You Lost :(";
         }
         else
         {
             victoryDialog.color = Color.green;
-            loadLevelCanvas.GetComponentInChildren<Text>().text = "You Won!";
+            victoryDialog.text = "You Won!";
         }
     }
 

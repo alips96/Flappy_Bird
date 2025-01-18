@@ -1,31 +1,30 @@
 ﻿using UnityEngine;
+using UniRx;
 
 public class MoveLeft : MonoBehaviour
 {
     [SerializeField] private float speed;
     private float groundSize;
 
-    // Start is called before the first frame update
     private void Start()
     {
-        if(gameObject.tag.CompareTo("Ground") == 0)
+        if (CompareTag("Ground"))
         {
             groundSize = GetComponentInChildren<BoxCollider2D>().size.x;
         }
+
+        Observable.EveryUpdate()
+            .Subscribe(_ => MoveObject())
+            .AddTo(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void MoveObject()
     {
-        transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
+        transform.position += Vector3.left * (speed * Time.deltaTime);
 
-        if(groundSize != 0)
+        if (groundSize > 0 && transform.position.x < -groundSize)
         {
-            if (transform.position.x < -groundSize)
-            {
-                transform.position = new Vector2(transform.position.x + groundSize, transform.position.y);
-            }
+            transform.position += Vector3.right * groundSize;
         }
-
     }
 }
